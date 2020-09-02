@@ -5,7 +5,7 @@
 if($_POST['arr_post'][0]['value'] == '#modal_add_counterparty')
 {
 	$error_code = 0;
-	$result_body = '	
+	$result_body = '
 						<script type="text/javascript">
 			      	    	$(".file-styled").uniform({
 						        fileButtonClass: "action btn bg-blue"
@@ -45,7 +45,7 @@ if($_POST['arr_post'][0]['value'] == '#modal_add_counterparty')
                                         <input type="file" class="file-styled"  name="counterparty_vis">
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
 							<div class="row">
 								<div class="col-md-4">
                                     <div class="form-group">
@@ -87,7 +87,7 @@ if($_POST['arr_post'][0]['value'] == '#modal_add_counterparty')
                                             {
                                                 $result_body .= '<option value="'.$row_2['id_technic'].'">'.$row_2['technic_name'].'</option>';
                                             }
-                                                       
+
                                         $result_body .= '</optgroup>';
                                         }
                                 $result_body .= '</select>
@@ -96,15 +96,15 @@ if($_POST['arr_post'][0]['value'] == '#modal_add_counterparty')
                             </div>';
 
     $result_footer = '<button class="btn btn-primary" form="add_counterparty">Сохранить</button>
+              <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
 					 </form>
-                     <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
                     ';
 }
 
-elseif($_POST['arr_post'][0]['value'] == '#modal_add_doc')
+elseif($_POST['arr_post'][0]['value'] == '#modal_add_counterparty_doc')
 {
 	$error_code = 0;
-	$result_body = '	  
+	$result_body = '
 			      	    <script type="text/javascript">
 			      	    	$(".select-search").select2();
 			      	    	$(".file-styled").uniform({
@@ -139,7 +139,7 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_doc')
                                 while($row = $db->table_select->fetch_assoc())
                                 {
                                     $result_body .= '<option value="'.$row['counterparty_id'].'">'.$row['counterparty_name'].' ('.$row['counterparty_INN'].')</option>';
-                                }  
+                                }
                                 $result_body .= '       </select>
 		                            </div>
                                 </div>
@@ -164,15 +164,15 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_doc')
                             </div> ';
 
     $result_footer = '<button class="btn btn-primary" form="add_counterparty_doc">Сохранить</button>
+              <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
 					 </form>
-                     <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
                     ';
 }
 
 elseif($_POST['arr_post'][0]['value'] == '#modal_add_technics')
 {
     $error_code = 0;
-    $result_body = '     
+    $result_body = '
                         <script type="text/javascript">
                             $(".select-search").select2();
                             $(".file-styled").uniform({
@@ -191,7 +191,7 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_technics')
                                 while($row = $db->table_select->fetch_assoc())
                                 {
                                     $result_body .= '<option value="'.$row['technics_class_id'].'">'.$row['technics_class_name'].'</option>';
-                                }  
+                                }
                                 $result_body .= '       </select>
                                     </div>
                                 </div>
@@ -207,8 +207,8 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_technics')
                             </div> ';
 
     $result_footer = '<button class="btn btn-primary" form="add_technics">Сохранить</button>
+    <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
                      </form>
-                     <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
                     ';
 }
 elseif($_POST['arr_post'][0]['value'] == '#modal_add_role')
@@ -241,7 +241,7 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_role')
                             </div>
                         </div>';
        $result_body .=  $GeneralModel->create_role('');
-       $result_body .= 
+       $result_body .=
 				 '
                     <div class="row">
                         <div class="col-md-12">
@@ -265,7 +265,7 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_role')
 elseif($_POST['arr_post'][0]['value'] == '#modal_add_user')
 {
 	$error_code = 0;
-	$result_body = '	 
+	$result_body = '
 			      	    <script type="text/javascript">
 			      	    	$(".select-search").select2();
                             $(".pickadate-accessibility").pickadate({
@@ -367,7 +367,7 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_user')
                                 while($row = $db->table_select->fetch_assoc())
                                 {
                                     $result_body .= '<option value="'.$row['role_id'].'">'.$row['role_name'].'</option>';
-                                }  
+                                }
 	                            $result_body .= '       </select>
 		                            </div>
                                 </div>
@@ -380,7 +380,7 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_user')
                                         while($row = $db_2->table_select->fetch_assoc())
                                         {
                                             $result_body .= '<option value="'.$row['sector_id'].'">'.$row['sector_title'].'</option>';
-                                        }  
+                                        }
                                         $result_body .= '</select>
 		                            </div>
                                 </div>
@@ -436,8 +436,8 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_organization')
                             <input type="file" class="file-styled"  name="organization_vis">
                         </div>
                     </div>
-                </div>    
-                <div class="row">    
+                </div>
+                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label><span style="color:red;">*</span>  Название организации</label>
@@ -505,10 +505,10 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_sector')
 {
 	$result_body .= '<script type="text/javascript">
 			      	    $(".select-search").select2();
-		      	    </script> 
+		      	    </script>
                     <form class="follow-form" enctype="multipart/form-data" method="POST" id="add_sector">
                 	<input type="hidden"  value ="add_sector" name="specification">
-		            <div class="row">  
+		            <div class="row">
 						<div class="col-md-6">
 		                    <div class="form-group">
 		                        <label><span style="color:red;">*</span> Выбрать организацию</label>
@@ -518,11 +518,11 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_sector')
 		                        while($row = $db->table_select->fetch_assoc())
                                 {
                                     $result_body .= '<option value="'.$row['organization_id'].'">'.$row['organization_name'].'</option>';
-                                }                 
+                                }
 
     $result_body .=             '</select>
 		                    </div>
-		                </div>  
+		                </div>
 		                <div class="col-md-6">
 		                    <div class="form-group">
 		                        <label><span style="color:red;">*</span>  Название отделения</label>
@@ -545,9 +545,9 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_object')
 {
 	$result_body .= '<script type="text/javascript">
 			      	    $(".select-search").select2();
-		      	    </script> 
+		      	    </script>
                     <form class="follow-form" enctype="multipart/form-data" method="POST" id="add_object">
-		            <div class="row">    
+		            <div class="row">
 		                <div class="col-md-4">
 		                    <div class="form-group">
 		                        <label><span style="color:red;">*</span>  Название объекта</label>

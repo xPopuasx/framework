@@ -1,10 +1,10 @@
 <?php
-	
+
 namespace app;
 
 class db
 {
-	
+
     public $host = 'localhost';
     public $user = 'root';
     public $password = '';
@@ -67,6 +67,8 @@ class db
             $this->array_result = array_map(array($this, 'input_protect'), $vars);
 
              foreach ($this->array_result as $key => $value) {
+							 $this->array_query_insert_value[] = $value;
+							 $this->array_query_insert_column[] = $key;
                 $this->query_insert_value .= "'".$value."', ";
                 $this->query_insert_column .= "`".$key."`, ";
             }
@@ -86,7 +88,7 @@ class db
                     $this->arr_column[] = $this->row['Field'];
                 }
                 $this->array_result = array_keys($vars);
-                foreach ($this->array_result as $key => $value) 
+                foreach ($this->array_result as $key => $value)
                 {
                     if(array_search($value, $this->arr_column) == 0)
                     {
@@ -98,12 +100,13 @@ class db
                         return true;
                     }
                 }
-                
+								$this->prt = $show_column;
+
             }
         }
     }
 
-    
+
 
     public function insert_into_table($table, $vars=[])
     {
@@ -124,7 +127,7 @@ class db
                 $this->error_code = 204;
                 $this->error_message = 'В процессе записи в таблицу возникла ошибка: <br> <code>'.mysqli_error($this->connect).$this->query_insert_column.'</code>';
             }
-           
+
         }
         else
         {
@@ -152,7 +155,7 @@ class db
         if($count_vars > 0 )
         {
             $params_to_query_where .= 'WHERE ';
-            foreach ($vars as $key => $value) 
+            foreach ($vars as $key => $value)
             {
                 $params_to_query_where .= '`'.$key.'` = "'.$value.'" AND ';
             }
@@ -173,16 +176,16 @@ class db
         {
 
             $exp_insert_column = count($params);
-            if(count($exp_insert_column) == '1')
+            if($exp_insert_column == 1)
             {
                 $query_insert = "WHERE " .$this->query_insert_column. " = " .$this->query_insert_value."";
             }
             else
             {
                 $query_insert .= "WHERE ";
-                for($i = 0; $i < count($exp_insert_value); $i ++)
+                for($i = 0; $i < $exp_insert_column; $i++)
                 {
-                    $query_insert .= $query_insert_column[$i]. " = ".$query_insert_value[$i]. " AND";
+                    $query_insert .= $this->array_query_insert_column[$i]. " = ".$this->array_query_insert_value[$i]. " AND ";
                 }
                 $query_insert = substr($query_insert, 0, -4);
             }
@@ -195,7 +198,8 @@ class db
             }
             else
             {
-                $this->error_status = mysqli_error($this->connect);
+								$this->error_status = 0;
+                $this->error_code = 0;
             }
         }
         else

@@ -37,7 +37,7 @@
                         </ul>
                     </div>
                     <div class="panel-body" id="table_counterpartys">
-                        
+
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     <div class="panel-heading">
                         <div class="heading-elements">
                             <ul class="icons-list">
-                                <li><a data-action="reload"></a></li>   
+                                <li><a data-action="reload"></a></li>
                                 <li><a data-action="collapse"></a></li>
                             </ul>
                         </div>
@@ -62,13 +62,13 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="panel-body">
-                        
+                    <div class="panel-body" id="table_counterparty_docs">
+
                     </div>
                 </div>
             </div>
         </div>
-	</div>	
+	</div>
 
     <div id="modal_add_counterparty" class="modal fade">
         <div class="modal-dialog modal-lg">
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="modal-body">
-                   
+
                 </div>
 
                 <div class="modal-footer">
@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <div id="modal_add_doc" class="modal fade">
+    <div id="modal_add_counterparty_doc" class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -99,11 +99,11 @@
                 </div>
 
                 <div class="modal-body">
-                   
+
                 </div>
 
                 <div class="modal-footer">
-                    
+
                 </div>
             </div>
         </div>
@@ -117,11 +117,11 @@
                 </div>
 
                 <div class="modal-body">
-                   
+
                 </div>
 
                 <div class="modal-footer">
-                    
+
                 </div>
             </div>
         </div>

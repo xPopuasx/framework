@@ -100,7 +100,7 @@ function access_roles_subclass(roles_id)
 
 
 function spinner_block(name,block_window){
-    var block = $('#'+name).parent().parent();
+    var block = $('#'+name).parent();
     if(block_window === 'block'){
         $(block).block({
             message: '<div class="pace-demo">' +
@@ -146,7 +146,7 @@ $(function () {
                     location.reload();
                 }
                 else
-                { 
+                {
                     $('#error_protocol').html(msg.error_msg);
                 }
             }
@@ -185,7 +185,7 @@ $(function () {
                     $('.close').click();
                 }
                 else
-                { 
+                {
                     new PNotify({
                         title: 'Ошибка ' + msg.error_code,
                         text: msg.error_msg,
@@ -197,7 +197,16 @@ $(function () {
         });
     });
 
+    $(document).on("click", ".pagination-arrow", function (e) {
+      e.preventDefault();
+      var id = $(this).attr('data-target');
+      var page =  $(this).attr('data-page');
+      var interval =  $(this).attr('data-interval');
+      var id_block = $(this).attr('data-block');
 
+      spinner_block(id_block, 'block');
+
+    })
 
 
     function appendContent(id_blokc)
@@ -209,7 +218,7 @@ $(function () {
 
             $('#'+id_blokc + '_append tr:first').addClass('active');
 
-            setTimeout(function() 
+            setTimeout(function()
             {
               $('#'+id_blokc + '_append tr:first').removeClass('active');
             }, 3000);
@@ -240,7 +249,7 @@ $(function () {
 
 
 
-
+    //Функция вывода информации при загрузке страницы
     function getViewContent(id_blokc)
     {
         var arr_post = [];
@@ -248,11 +257,13 @@ $(function () {
         $.post('../../views/includes/view_content.php', {arr_post}, function(data){
            $('#'+id_blokc).html(data.result_content);
         }, 'json');
-
     }
+
+    //Вывод информации при загрузке страницы
     if(window.location.pathname === '/technics/counterparty')
     {
         getViewContent('table_counterpartys');
+        getViewContent('table_counterparty_docs');
     }
     else if(window.location.pathname === '/administration/management')
     {
@@ -267,9 +278,5 @@ $(function () {
     {
         getViewContent('table_users');
     }
+
 })
-
-
-
-
-

@@ -50,9 +50,9 @@
         {
             $login = input_protect($_POST['login']);
             $password = input_protect($_POST['password']);
-            $db->query_free("SELECT * FROM `users` 
+            $db->query_free("SELECT * FROM `users`
               INNER JOIN `roles` ON `users`.`user_access` = `roles`.`role_id`
-              WHERE `user_login` = '".$login."' AND `user_password` = '".$password."' AND `user_status` = '0'"); 
+              WHERE `user_login` = '".$login."' AND `user_password` = '".$password."' AND `user_status` = '0'");
             if($db->table_query->num_rows == 1)
             {
                 $row = $db->table_query->fetch_assoc();
@@ -81,30 +81,18 @@
 
       elseif($specification == 'add_counterparty_doc')
       {
-        
+
         if(check_array($_POST, 4) == true)
-        { 
-          $db->Check_duble_Table('technics_doc', 'Данный договор уже зарегестрирован', ['technics_doc_counterparty' => $_POST['doc_counterparty'],'technics_doc_number' => $_POST['technics_doc_number']]);
+        {
+          $db->Check_duble_Table('technics_doc', 'Данный договор уже зарегестрирован', ['technics_doc_counterparty' => $_POST['doc_counterparty'], 'technics_doc_number' => $_POST['doc_number']]);
           if($db->error_status == 0)
           {
-            $array_doc = array();
-            $array_doc['technics_doc_counterparty'] = $_POST['doc_counterparty'];
-            $array_doc['technics_doc_number']       = $_POST['doc_number'];
-            $array_doc['technics_doc_date']         = date("Y-m-d", strtotime($_POST['doc_date']));
-            $db->insert_into_table('technics_doc', $array_doc);
-            if($db->error_code == 0)
-            {
-              $error_code = $db->error_code;
-              $error_msg = 'Организация успешно добавлена';
-            }
-            else
-            {
+
               $error_code = $db->error_code;
               $error_msg  = $db->error_message;
-            }
           }
           else
-          { 
+          {
             $error_code = $db->error_code;
             $error_msg  = $db->error_message;
           }
@@ -151,13 +139,13 @@
                   {
                     $error_code = $db->error_code;
                     $error_msg  = $db->error_message;
-                  } 
+                  }
               }
               else
               {
                 $error_code = $db->error_code;
                 $error_msg  = $db->error_message;
-              } 
+              }
            }
            else
            {
@@ -175,7 +163,7 @@
       elseif($specification == 'add_organization')
       {
         if(check_array($_POST, 6) == true)
-        { 
+        {
           $db->insert_into_table('organizations', $_POST);
           if($db->error_code == 0)
           {
@@ -198,7 +186,7 @@
       elseif($specification == 'add_technics')
       {
         if(check_array($_POST, 3) == true && $_POST['technic_class'] == 0)
-        { 
+        {
           $db->Check_duble_Table('technics', 'Данный вид техники уже имеется в системе', ['technic_name' => $_POST['technic_name']]);
             if($db->error_status == 0)
             {
@@ -221,7 +209,7 @@
             {
               $error_code = $db->error_code;
               $error_msg  = $db->error_message;
-            }  
+            }
         }
         else
         {
@@ -233,7 +221,7 @@
       elseif($specification == 'add_sector')
       {
         if(check_array($_POST, 3) == true)
-        { 
+        {
           $db->insert_into_table('sectors', $_POST);
           if($db->error_code == 0)
           {
@@ -271,7 +259,7 @@
                 $db->insert_into_table('roles', $array_role);
               if($db->error_code == 0)
               {
-                
+
                 $error_code = $db->error_status;
                 $error_msg = 'Роль успешно добавлена';
               }
@@ -288,7 +276,7 @@
             }
           }
           else
-          { 
+          {
             $error_code = $db->error_code;
             $error_msg  = $db->error_message;
           }
@@ -302,7 +290,7 @@
       elseif($specification == 'add_user')
       {
         if(check_array($_POST, 12) == true)
-        { 
+        {
           if($_POST['user_role'] != 0 && $_POST['user_sector'] != 0)
           {
             $db->Check_duble_Table('users', 'Данная почта уже присутствут в системе', ['user_email' => $_POST['user_email']]);
@@ -350,19 +338,19 @@
                 {
                   $error_code = $db->error_code;
                   $error_msg  = $db->error_message;
-                }   
+                }
               }
               else
               {
                 $error_code = $db->error_code;
                 $error_msg  = $db->error_message;
-              }    
+              }
             }
             else
             {
               $error_code = $db->error_code;
               $error_msg  = $db->error_message;
-            }  
+            }
           }
           else
           {
@@ -382,7 +370,7 @@
         $error_msg = 'Отсутствует ключ обработки';
       }
 
-  
+
   $result = json_encode(array('error_code' => $error_code, 'error_msg' => $error_msg, 'specification' => $specification));
   echo $result;
 

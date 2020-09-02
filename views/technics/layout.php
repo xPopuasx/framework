@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="ru">
-    
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
@@ -28,18 +28,17 @@
   	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switchery.min.js"></script>
   	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/selects/select2.min.js"></script>
   	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/notifications/pnotify.min.js"></script>
-	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/pages/form_inputs.js"></script>
+	  <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/pages/form_inputs.js"></script>
     <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/pages/form_select2.js"></script>
-	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switch.min.js"></script>
-	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/pages/components_popups.js"></script>
-	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/pickers/pickadate/picker.js"></script>
-	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/pickers/pickadate/picker.date.js"></script>
-  	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/functions.js"></script>
+	  <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switch.min.js"></script>
+	  <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/pages/components_popups.js"></script>
+	  <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/pickers/pickadate/picker.js"></script>
+	  <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/pickers/pickadate/picker.date.js"></script>
   	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/inputs/passy.js"></script>
-	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/inputs/maxlength.min.js"></script>
+    <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/inputs/maxlength.min.js"></script>
 
     <script src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switchery.min.js"></script>
-	<script src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switch.min.js"></script>
+	  <script src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switch.min.js"></script>
   	<script src="<?= $vars[0];?>/views/assets/js/functions.js"></script>
 
 
@@ -59,7 +58,7 @@
             <?=$menu?>
 
             <?=$content?>
-            
+
             <?php if($vars['has_sidebar'] == true){?>
 	        	<?=$right_sidebar?>
 	        <?php }?>
@@ -67,10 +66,7 @@
 
 
     </div>
-    
+
 </body>
 
 </html>
-
-
-
