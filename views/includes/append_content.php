@@ -7,10 +7,10 @@
       $specification = $_POST["arr_post"][0]["value"];
       if($specification == "table_organizations")
       {
-        $db->query_free("SELECT * FROM `organizations` 
-          ORDER BY `organization_id` DESC LIMIT 1"); 
+        $db->query_free("SELECT * FROM `organizations`
+          ORDER BY `organization_id` DESC LIMIT 1");
         $row = $db->table_query->fetch_assoc();
-          $result_content .= 
+          $result_content .=
           '<tr>
             <td data-label="Название организации"><b>';
             $result_content .= $row['organization_name'];
@@ -40,11 +40,40 @@
             </td>
           </tr>';
       }
+      elseif($specification == "table_counterpartyDocs")
+      {
+        $db->query_free("SELECT * FROM `technics_doc` INNER JOIN `technics_counterparty` ON `technics_doc`.`technics_doc_counterparty` = `technics_counterparty`.`counterparty_id` ORDER BY `technics_doc`.`technics_doc_id` DESC LIMIT 1");
+        $row = $db->table_query->fetch_assoc();
+        $result_content .=
+        '<tr>
+          <td data-label="Инофрмация"><b>';
+          $result_content .= $row['counterparty_name'];
+          $result_content .= '</b>
+          <br>
+            <span><i class="icon-credit-card"></i> '.$row['technics_doc_number'].'</span>
+          </td>
+          <td data-label="Дата">'.date("d.m.Y", strtotime($row['technics_doc_date'])).'
+          </td>
+          <td data-label="Функции">
+             <ul class="icons-list">
+              <div class="btn-group"><button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog3"></i><span class="caret"></span></button>
+                  <ul class="dropdown-menu dropdown-menu-right" style="width:200px;">
+
+                      <li><a><i class="icon-info3"></i>Скачать договор</a></li>
+                      <li><a><i class="icon-pencil"></i> Редактировать</a></li>
+                      <li class="divider"></li>
+                      <li><a><i class="icon-cross2" style="color:red"></i> Удалить</a></li>
+                  </ul>
+                 </li>
+              </ul>
+          </td>
+        </tr>';
+      }
       elseif($specification == "table_counterpartys")
       {
-        $db->query_free("SELECT * FROM `technics_counterparty`  ORDER BY `counterparty_id` DESC LIMIT 1 "); 
+        $db->query_free("SELECT * FROM `technics_counterparty`  ORDER BY `counterparty_id` DESC LIMIT 1 ");
         $row = $db->table_query->fetch_assoc();
-          $result_content .= 
+          $result_content .=
           '<tr>
             <td data-label="Название организации"><b>';
             $result_content .= $row['counterparty_name'];
@@ -76,11 +105,11 @@
       }
       elseif($specification == "table_sectors")
       {
-        $db->query_free("SELECT * FROM `sectors` 
-          INNER JOIN `organizations` ON `sectors`.`sector_id_organization` = `organizations`.`organization_id` 
-          ORDER BY `sector_id` DESC LIMIT 1"); 
+        $db->query_free("SELECT * FROM `sectors`
+          INNER JOIN `organizations` ON `sectors`.`sector_id_organization` = `organizations`.`organization_id`
+          ORDER BY `sector_id` DESC LIMIT 1");
         $row = $db->table_query->fetch_assoc();
-          $result_content .= 
+          $result_content .=
           '<tr>
             <td data-label="Название отделения"><b>';
             $result_content .= $row['sector_title'];
@@ -106,8 +135,8 @@
       }
       elseif($specification == "table_roles")
       {
-        $db->query_free("SELECT * FROM `roles`  
-          ORDER BY `role_id` DESC LIMIT 1"); 
+        $db->query_free("SELECT * FROM `roles`
+          ORDER BY `role_id` DESC LIMIT 1");
         $row = $db->table_query->fetch_assoc();
           if($row['role_status'] == 0)
           {
@@ -117,7 +146,7 @@
           {
             $status = '<a class="btn border-danger-400 text-danger-400 btn-rounded btn-icon btn-xs" data-popup = "popover-supply-view" data-placement="top" data-content= "Роль заблокирована"><i class="icon-lock2" style="color:red;" ></i></a>';
           }
-          $result_content .= 
+          $result_content .=
           '<tr>
             <td data-label="#">
             '.$status.'
@@ -154,8 +183,8 @@
       }
       elseif($specification == "table_users")
       {
-        $db->query_free("SELECT * FROM `users` INNER JOIN `roles` ON `users`.`user_access` = `roles`.`role_id` INNER JOIN `sectors` ON `users`.`user_position` = `sectors`.`sector_id` 
-          ORDER BY `user_id` DESC LIMIT 1"); 
+        $db->query_free("SELECT * FROM `users` INNER JOIN `roles` ON `users`.`user_access` = `roles`.`role_id` INNER JOIN `sectors` ON `users`.`user_position` = `sectors`.`sector_id`
+          ORDER BY `user_id` DESC LIMIT 1");
         $row = $db->table_query->fetch_assoc();
         if($row['user_status'] == 0)
         {
@@ -165,7 +194,7 @@
         {
           $status = '<a class="btn border-danger-400 text-danger-400 btn-rounded btn-icon btn-xs" data-popup = "popover-supply-view" data-placement="top" data-content= "Заблокирован"><i class="icon-user-block" style="color:red;" ></i></a>';
         }
-        $result_content .= 
+        $result_content .=
         '<tr>
           <td data-label="#">
           '.$status.'
@@ -209,7 +238,7 @@
               });
             </script>';
       }
-  	
+
   $result = json_encode(array("error_code" => $error_code, "error_msg" => $error_msg, "result_content" => $result_content));
   echo $result;
 

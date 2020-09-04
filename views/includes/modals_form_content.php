@@ -101,7 +101,7 @@ if($_POST['arr_post'][0]['value'] == '#modal_add_counterparty')
                     ';
 }
 
-elseif($_POST['arr_post'][0]['value'] == '#modal_add_counterparty_doc')
+elseif($_POST['arr_post'][0]['value'] == '#modal_add_counterpartyDoc')
 {
 	$error_code = 0;
 	$result_body = '
@@ -121,8 +121,8 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_counterparty_doc')
                                  format: "dd.mm.yyyy",
                             });
 			      	    </script>
-			      	    <form  class="follow-form" enctype="multipart/form-data" method="POST" id="add_counterparty_doc">
-                            <input type="hidden"  value ="add_counterparty_doc" name="specification">
+			      	    <form  class="follow-form" enctype="multipart/form-data" method="POST" id="add_counterpartyDoc">
+                  <input type="hidden"  value ="add_counterpartyDoc" name="specification">
 							<div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-group-material">
@@ -163,7 +163,7 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_counterparty_doc')
                                 </div>
                             </div> ';
 
-    $result_footer = '<button class="btn btn-primary" form="add_counterparty_doc">Сохранить</button>
+    $result_footer = '<button class="btn btn-primary" form="add_counterpartyDoc">Сохранить</button>
               <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
 					 </form>
                     ';

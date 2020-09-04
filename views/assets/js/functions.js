@@ -197,6 +197,30 @@ $(function () {
         });
     });
 
+    function getViewContentPagination(id_block, page, interval)
+    {
+        var arr_post = [];
+        arr_post.push({"id" : 1, "value":id_block});
+        arr_post.push({"id" : 2, "value":page});
+        arr_post.push({"id" : 3, "value":interval});
+        $.post('../../views/includes/view_content.php', {arr_post}, function(data){
+           $('#'+id_block).html(data.result_content);
+           spinner_block(id_block, 'unblock');
+        }, 'json');
+    }
+
+    function getViewContentPagination(id_block, page, interval)
+    {
+        var arr_post = [];
+        arr_post.push({"id" : 1, "value":id_block});
+        arr_post.push({"id" : 2, "value":page});
+        arr_post.push({"id" : 3, "value":interval});
+        $.post('../../views/includes/view_content.php', {arr_post}, function(data){
+           $('#'+id_block).html(data.result_content);
+        }, 'json');
+        spinner_block(id_block, 'unblock');
+    }
+
     $(document).on("click", ".pagination-arrow", function (e) {
       e.preventDefault();
       var id = $(this).attr('data-target');
@@ -205,18 +229,18 @@ $(function () {
       var id_block = $(this).attr('data-block');
 
       spinner_block(id_block, 'block');
-
+      getViewContentPagination(id_block, page, interval);
     })
 
 
-    function appendContent(id_blokc)
+    function appendContent(id_block)
     {
         var arr_post = [];
-        arr_post.push({"id" : 1, "value":id_blokc});
+        arr_post.push({"id" : 1, "value":id_block});
         $.post('../../views/includes/append_content.php', {arr_post}, function(data){
-            $('#'+id_blokc + '_append').prepend(data.result_content);
+            $('#'+id_block + '_append').prepend(data.result_content);
 
-            $('#'+id_blokc + '_append tr:first').addClass('active');
+            $('#'+id_block + '_append tr:first').addClass('active');
 
             setTimeout(function()
             {
@@ -263,7 +287,7 @@ $(function () {
     if(window.location.pathname === '/technics/counterparty')
     {
         getViewContent('table_counterpartys');
-        getViewContent('table_counterparty_docs');
+        getViewContent('table_counterpartyDocs');
     }
     else if(window.location.pathname === '/administration/management')
     {

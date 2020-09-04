@@ -5,11 +5,23 @@
   $Session = new app\Session();
   $db = new app\db;
       $specification = $_POST["arr_post"][0]["value"];
+      if(isset($_POST["arr_post"][1]["value"]))
+      {
+        $page = $_POST["arr_post"][1]["value"];
+        $num_rows = $_POST["arr_post"][2]["value"];
+      }
+      else
+      {
+        $page = 0;
+        $num_rows = 5;
+      }
+      $view_rows = $page * $num_rows;
 
-      function pagination($page, $num_rows, $id_block)
+      function pagination($page, $num_rows, $id_block, $table)
     	{
         $next_page = $page + 1;
         $prev_page = $page - 1;
+
         $view_rows = $page * $num_rows;
         $result.=
     		'
@@ -23,16 +35,21 @@
         <div class="row">
     		<div class="col-md-12">
             <ul class="pagination pagination-separated" style=" margin-top:15px;">';
-
+            if($page > 0)
+            {
             $result.= '<li class = "pagination-arrow" data-target="prev" data-page ="'.$prev_page.'" data-interval = "'.$num_rows.'" data-table = "'.$table_name.'" data-block = "'.$id_block.'"><a data-popup = "popover-supply-view" data-placement="top" data-content="Назад"><i class="icon-arrow-left32"></i></a></li>';
-
-
+            }
+            $db = new app\db;
+              $db->query_free("SELECT * FROM `".$table."` ");
 
             $result.= '<li><a data-popup = "popover-supply-view" data-placement="top" data-content="от-до" >'.($view_rows+1).' - '.$num_rows * $next_page.'</a></li>
-            <li><a data-popup="tooltip" title="Количество всего" data-placement="top" data-container="body"></a></li>';
+            <li><a data-popup = "popover-supply-view" data-placement="top" data-content="всего">'.mysqli_num_rows($db->table_query).'</a></li>';
+            $check = $view_rows + $num_rows;
+            if(mysqli_num_rows($db->table_query) > $check)
+            {
 
-            $result.= '<li  class = "pagination-arrow" data-target="next"><a data-popup = "popover-supply-view" data-placement="top" data-content="Вперед"><i class="icon-arrow-right32"></i></a></li>';
-
+            $result.= '<li  class = "pagination-arrow" data-target="next" data-page ="'.$next_page.'" data-interval = "'.$num_rows.'" data-table = "'.$table_name.'" data-block = "'.$id_block.'"><a data-popup = "popover-supply-view" data-placement="top" data-content="Вперед"><i class="icon-arrow-right32"></i></a></li>';
+          }
             $result.='</ul>
             </div>
                  </div>';
@@ -43,6 +60,7 @@
 
       if($specification == "table_counterpartys")
       {
+        $result_content .= pagination($page, $num_rows, 'table_counterpartys', 'technics_counterparty');
         $result_content .= '<table class="table table-hover">
                             <thead>
                                 <tr>
@@ -89,13 +107,11 @@
           $result_content .=
                             '</tbody>
                             </table>';
+        $result_content .= pagination($page, $num_rows, 'table_counterpartys', 'technics_counterparty');
       }
-      if($specification == "table_counterparty_docs")
+      if($specification == "table_counterpartyDocs")
       {
-        $page = 0;
-        $num_rows = 5;
-        $view_rows = $page * $num_rows;
-        $result_content .= pagination($page, $num_rows, 'technics_doc', 'table_counterparty_docs');
+        $result_content .= pagination($page, $num_rows, 'table_counterpartyDocs', 'technics_doc');
         $result_content .= '<table class="table table-hover">
                             <thead>
                                 <tr>
@@ -137,10 +153,11 @@
           $result_content .=
                             '</tbody>
                             </table>';
-          $result_content .= pagination($page, $num_rows, 'technics_doc', 'table_counterparty_docs');
+          $result_content .= pagination($page, $num_rows, 'table_counterpartyDocs', 'technics_doc');
       }
       elseif($specification == "table_organizations")
       {
+          $result_content .= pagination($page, $num_rows, 'table_table_organizationssectors', 'organizations');
           $result_content .= '<table class="table table-hover">
                             <thead>
                                 <tr>
@@ -187,10 +204,12 @@
           $result_content .=
                             '</tbody>
                             </table>';
+          $result_content .= pagination($page, $num_rows, 'table_table_organizationssectors', 'organizations');
       }
 
       elseif($specification == "table_sectors")
       {
+          $result_content .= pagination($page, $num_rows, 'table_sectors', 'sectors');
           $result_content .= '<table class="table table-hover">
                             <thead>
                                 <tr>
@@ -230,9 +249,11 @@
           $result_content .=
                             '</tbody>
                             </table>';
+          $result_content .= pagination($page, $num_rows, 'table_sectors', 'sectors');
       }
       elseif($specification == "table_roles")
       {
+          $result_content .= pagination($page, $num_rows, 'table_roles', 'roles');
           $result_content .= '
                           <script>
                           $("[data-popup=popover-supply-view]").popover({
@@ -253,7 +274,7 @@
                                 </tr>
                             </thead>
                             <tbody id="'.$specification.'_append">';
-                            $db->query_free("SELECT * FROM `roles`  ORDER BY `role_id` DESC ");
+                            $db->query_free("SELECT `roles`.*, COUNT(`users`.`user_id`) AS `count_users` FROM `roles` INNER JOIN `users` ON `users`.`user_access` = `roles`.`role_id` GROUP BY `roles`.`role_id` ORDER BY `role_id` DESC ");
                             while($row = $db->table_query->fetch_assoc())
                             {
                               if($row['role_status'] == 0)
@@ -275,7 +296,7 @@
                                 </th>
                                 <td data-label="Доступные разделы"></td>
                                 <td data-label="Привелегии"></td>
-                                <td data-label="Количество пользователей"></td>
+                                <td data-label="Количество пользователей">'.$row['count_users'].'</td>
                                 <td data-label="Функции">
                                    <ul class="icons-list">
                                     <div class="btn-group"><button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog3"></i><span class="caret"></span></button>
@@ -296,9 +317,11 @@
           $result_content .=
                             '</tbody>
                             </table>';
+        $result_content .= pagination($page, $num_rows, 'table_roles', 'roles');
       }
       elseif($specification == "table_users")
       {
+          $result_content .= pagination($page, $num_rows, 'table_users', 'users');
           $result_content .= '
                           <script>
                           $("[data-popup=popover-supply-view]").popover({
@@ -373,6 +396,7 @@
           $result_content .=
                             '</tbody>
                             </table>';
+          $result_content .= pagination($page, $num_rows, 'table_users', 'users');
       }
 
 

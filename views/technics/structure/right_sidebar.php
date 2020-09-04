@@ -32,7 +32,7 @@
                 <div class="category-content no-padding">
                     <ul class="navigation navigation-alt navigation-accordion">
                         <li class="modal-li"  data-toggle="modal" data-target="#modal_add_counterparty" ><a><i class="icon-add" style="margin-right:15px;"></i> Добавить контрагента</a></li>
-                        <li class="modal-li" data-toggle="modal" data-target="#modal_add_counterparty_doc"><a><i class="icon-file-plus2" style="margin-right:15px;"></i> Добавить договор</a></li>
+                        <li class="modal-li" data-toggle="modal" data-target="#modal_add_counterpartyDoc"><a><i class="icon-file-plus2" style="margin-right:15px;"></i> Добавить договор</a></li>
 
                         <li class="modal-li" data-toggle="modal" data-target="#modal_add_technics"><a><i class="icon-truck" style="margin-right:15px;"></i> Создать новую единциу</a></li>
                     </ul>

@@ -79,7 +79,7 @@
         }
       }
 
-      elseif($specification == 'add_counterparty_doc')
+      elseif($specification == 'add_counterpartyDoc')
       {
 
         if(check_array($_POST, 4) == true)
@@ -87,9 +87,21 @@
           $db->Check_duble_Table('technics_doc', 'Данный договор уже зарегестрирован', ['technics_doc_counterparty' => $_POST['doc_counterparty'], 'technics_doc_number' => $_POST['doc_number']]);
           if($db->error_status == 0)
           {
-
+            $array_counterparty_doc = array();
+            $array_counterparty_doc['technics_doc_counterparty']  = $_POST['doc_counterparty'];
+            $array_counterparty_doc['technics_doc_number']   = $_POST['doc_number'];
+            $array_counterparty_doc['technics_doc_date'] =  date("Y-m-d", strtotime($_POST['doc_date']));;
+            $db->insert_into_table('technics_doc', $array_counterparty_doc);
+            if($db->error_code == 0)
+            {
+              $error_code = $db->error_code;
+              $error_msg = 'Договор успешно добавлен';
+            }
+            else
+            {
               $error_code = $db->error_code;
               $error_msg  = $db->error_message;
+            }
           }
           else
           {

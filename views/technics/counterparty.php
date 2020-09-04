@@ -62,7 +62,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="panel-body" id="table_counterparty_docs">
+                    <div class="panel-body" id="table_counterpartyDocs">
 
                     </div>
                 </div>
@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <div id="modal_add_counterparty_doc" class="modal fade">
+    <div id="modal_add_counterpartyDoc" class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
