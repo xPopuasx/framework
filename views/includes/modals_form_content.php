@@ -544,11 +544,24 @@ $result_footer = '<button class="btn btn-primary" form="add_sector">Добави
 elseif($_POST['arr_post'][0]['value'] == '#modal_add_object')
 {
 	$result_body .= '<script type="text/javascript">
-			      	    $(".select-search").select2();
-		      	    </script>
+                    $(".select").select2();
+		      	       </script>
                     <form class="follow-form" enctype="multipart/form-data" method="POST" id="add_object">
+                	<input type="hidden"  value ="add_object" name="specification">
 		            <div class="row">
-		                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span> Ответственное лицо (-ые)</label>
+                            <select multiple="multiple" class="select" name="object_users[]">';
+                                $db->select_table(NULL, 'users', NULL);
+                                  while($row = $db->table_select->fetch_assoc())
+                                {
+                                    $result_body .= '<option value="'.$row['user_id'].'">'.$row['user_surname'].' '.$row['user_name'].' '.$row['user_middle_name'].'</option>';
+                                }
+              $result_body .='</select>
+                        </div>
+                    </div>
+		                <div class="col-md-6">
 		                    <div class="form-group">
 		                        <label><span style="color:red;">*</span>  Название объекта</label>
 		                        <div class="input-group">
@@ -557,26 +570,75 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_object')
 		                        </div>
 		                    </div>
 		                </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label><span style="color:red;">*</span>  Полный адрес объекта</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control"  placeholder="Укажите адрес" name="object_address">
-                                    <span class="input-group-addon bg-primary"><i class="icon-envelop"></i></span>
+                                    <input type="text" class="form-control"  placeholder="Укажите адрес" name="obecjt_address">
+                                    <span class="input-group-addon bg-primary"><i class="icon-map4"></i></span>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label><span style="color:red;">*</span> Ответственное лицо</label>
-                                <select class="select select-search"  name="object_user">
-                                    <option>123</option>
-                                </select>
                             </div>
                         </div>
 		            </div>
 				';
-$result_footer = '<button class="btn btn-primary" form="add_sector">Добавить отделение</button>
+$result_footer = '
+      <button class="btn btn-primary" form="add_object">Добавить объект</button>
+			 </form><button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>';
+}
+
+elseif($_POST['arr_post'][0]['value'] == '#modal_add_work_technic_deliver')
+{
+	$result_body .= '<script type="text/javascript">
+			      	    $(".select-search").select2();
+		      	    </script>
+                    <form class="follow-form" enctype="multipart/form-data" method="POST" id="add_object">
+		            <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span> Выбрать тип техники</label>
+                            <select class="select select-search"  name="technic_name">';
+                            $db->select_table(NULL, 'technics_class', NULL);
+                                  while($row = $db->table_select->fetch_assoc())
+                                  {
+                                  $result_body .= '<optgroup label="'.$row['technics_class_name'].'">';
+                                      $db_2->query_free("SELECT * FROM `technics`  WHERE `id_technic_class` = '".$row['technics_class_id']."'");
+                                      while($row_2 = $db_2->table_query->fetch_assoc())
+                                      {
+                                          $result_body .= '<option value="'.$row_2['id_technic'].'">'.$row_2['technic_name'].'</option>';
+                                      }
+
+                                  $result_body .= '</optgroup>';
+                                  }
+                          $result_body .= '
+                          </select>
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span> Выбрать объект доставки</label>
+                            <select class="select select-search"  name="object_user">';
+                            $db->select_table(NULL, 'objects', NULL);
+                                  while($row = $db->table_select->fetch_assoc())
+                                  {
+                                      $result_body .= '<option value="'.$row['object_id'].'">'.$row['object_title'].'</option>';
+                                  }
+                          $result_body .= '
+                          </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span>  Полный адрес объекта</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control"  placeholder="Укажите адрес" name="object_address">
+                                <span class="input-group-addon bg-primary"><i class="icon-map4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+		            </div>
+				';
+$result_footer = '<button class="btn btn-primary" form="add_sector">Добавить объект</button>
 			 </form>
              <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
             ';

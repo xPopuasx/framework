@@ -211,7 +211,7 @@ class db
 
         unset($this->query_insert_column);
         unset($this->query_insert_value);
-
+				mysqli_close();
     }
 
     public function delet_from_table()

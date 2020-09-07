@@ -20,8 +20,8 @@
             echo'
                 <div class="category-content no-padding">
                     <ul class="navigation navigation-alt navigation-accordion">
-                        <li><a><i class="icon-add"></i> Добавить технику</a></li>
-                        <li><a><i class="icon-alignment-align"></i> Добавить доставку</a></li>
+                        <li  class="modal-li"  data-toggle="modal" data-target="#modal_add_work_technic" ><a><i class="icon-add"></i> Добавить технику</a></li>
+                        <li  class="modal-li"  data-toggle="modal" data-target="#modal_add_work_technic_deliver" ><a><i class="icon-alignment-align"></i> Добавить доставку</a></li>
                         <li><a><i class="icon-file-plus2"></i> Добавить договор</a></li>
                     </ul>
                 </div>';
@@ -32,7 +32,7 @@
                 <div class="category-content no-padding">
                     <ul class="navigation navigation-alt navigation-accordion">
                         <li class="modal-li"  data-toggle="modal" data-target="#modal_add_counterparty" ><a><i class="icon-add" style="margin-right:15px;"></i> Добавить контрагента</a></li>
-                        <li class="modal-li" data-toggle="modal" data-target="#modal_add_counterpartyDoc"><a><i class="icon-file-plus2" style="margin-right:15px;"></i> Добавить договор</a></li>
+                        <li class="modal-li" data-toggle="modal" data-target="#modal_add_counterpartyDocs"><a><i class="icon-file-plus2" style="margin-right:15px;"></i> Добавить договор</a></li>
 
                         <li class="modal-li" data-toggle="modal" data-target="#modal_add_technics"><a><i class="icon-truck" style="margin-right:15px;"></i> Создать новую единциу</a></li>
                     </ul>

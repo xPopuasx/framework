@@ -116,6 +116,42 @@
         }
       }
 
+      elseif($specification == 'add_object')
+      {
+
+        if(check_array($_POST, 4) == true)
+        {
+          if(count($_POST['object_users'] != 0))
+          {
+            $array_object = array();
+            $array_object['object_users'] = $_POST['object_users'];
+            $array_object['object_title'] = $_POST['object_title'];
+            $array_object['obecjt_address']   = $_POST['obecjt_address'];
+            $db->insert_into_table('objects', $array_object);
+            if($db->error_code == 0)
+            {
+              $error_code = $db->error_code;
+              $error_msg = 'Объект успешно добавлен';
+            }
+            else
+            {
+              $error_code = $db->error_code;
+              $error_msg  = $db->error_message;
+            }
+          }
+          else
+          {
+            $error_code = 300;
+            $error_msg = 'Заполните все обязательные поля';
+          }
+        }
+        else
+        {
+          $error_code = 300;
+          $error_msg = 'Заполните все обязательные поля';
+        }
+      }
+
       elseif($specification == 'add_counterparty')
       {
         if(check_array($_POST, 7) == true)
@@ -161,8 +197,8 @@
            }
            else
            {
-             $error_code = 304;
-             $error_msg = 'Укажите виды техники';
+             $error_code = 300;
+             $error_msg = 'Заполните все обязательные поля';
            }
         }
         else
