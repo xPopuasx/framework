@@ -46,7 +46,7 @@
             </ul>
         </div>
         <div class="panel-body" id="table_sectors">
-            
+
         </div>
     </div>
 </div>

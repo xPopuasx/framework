@@ -134,6 +134,9 @@ class db
             $this->error_code = 205;
             $this->error_message = 'Ошибка синхронизации столбцов и массива данных <code>'.serialize($this->array_result);
         }
+
+                unset($this->query_insert_column);
+                unset($this->query_insert_value);
     }
 
     public function select_table($params=[], $table, $vars=[])
@@ -168,6 +171,7 @@ class db
         $this->db_connect();
         $this->query .= "SELECT ".$params_to_query." FROM `".$table."` ".$params_to_query_where."";
         $this->table_select = @mysqli_query($this->connect, $this->query);
+        unset($this->query);
     }
 
     public function Check_duble_Table($table, $comment, $params=[])
@@ -211,7 +215,6 @@ class db
 
         unset($this->query_insert_column);
         unset($this->query_insert_value);
-				mysqli_close();
     }
 
     public function delet_from_table()

@@ -90,12 +90,12 @@ if($_POST['arr_post'][0]['value'] == '#modal_add_counterparty')
 
                                         $result_body .= '</optgroup>';
                                         }
-                                $result_body .= '</select>
+                                        $result_body .= '</select>
                                     </div>
                                 </div>
                             </div>';
 
-    $result_footer = '<button class="btn btn-primary" form="add_counterparty">Сохранить</button>
+    $result_footer = '<button class="btn btn-primary" form="add_counterparty" >Сохранить</button>
               <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
 					 </form>
                     ';
@@ -586,19 +586,199 @@ $result_footer = '
 			 </form><button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>';
 }
 
+
+
+
+elseif($_POST['arr_post'][0]['value'] == '#modal_add_contractor')
+{
+    $result_body .= '<script type="text/javascript">
+                    $(".select").select2();
+                    var elements = document.getElementsByClassName("mask-phone");
+                    for (var i = 0; i < elements.length; i++) {
+                      new IMask(elements[i], {
+                        mask:"+{7}(000)000-00-00",
+                      });
+                    }
+                    var elements = document.getElementsByClassName("mask-numeral");
+                    for (var i = 0; i < elements.length; i++) {
+                      new IMask(elements[i], {
+                        mask:"00000000000000000000",
+                      });
+                    }
+                    if (Array.prototype.forEach) {
+                        var elems = Array.prototype.slice.call(document.querySelectorAll(".switchery"));
+                        elems.forEach(function(html) {
+                            var switchery = new Switchery(html);
+                        });
+                    }
+                    else {
+                        var elems = document.querySelectorAll(".switchery");
+                        for (var i = 0; i < elems.length; i++) {
+                            var switchery = new Switchery(elems[i]);
+                        }
+                    }
+                   </script>
+                    <form class="follow-form" enctype="multipart/form-data" method="POST" id="add_contractor">
+                    <input type="hidden"  value ="add_contractor" name="specification">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label><span style="color:red;">*</span>  Название поставщика</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control"  placeholder="Укажите название" name="title_contractor">
+                                    <span class="input-group-addon bg-primary"><i class="icon-envelop"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label><span style="color:red;">*</span>  ИНН поставщика</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control mask-numeral"  placeholder="Укажите название" name="inn_contractor">
+                                    <span class="input-group-addon bg-primary"><i class="icon-envelop"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label><span style="color:red;">*</span>  Геопозиция (город)</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control"  placeholder="Укажите название" name="city_contractor">
+                                    <span class="input-group-addon bg-primary"><i class="icon-envelop"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Поставляеммые группы ТМЦ</label>
+                                <select  class="select" name="category_contractor">';
+                                $db->select_table(NULL, 'contractor_category', NULL);
+                                while($row = $db->table_select->fetch_assoc())
+                                {
+                                    $result_body .= '<option value="'.$row['id_contractor_category'].'">'.$row['title_contractor_category'].'</option>';
+                                }
+                                $result_body .= '</select>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>Поставляеммые группы ТМЦ</label>
+                                <select multiple="multiple" class="select" name="ul_contractor_tmc[]">';
+                                $db->select_table(NULL, 'contractor_tmc', NULL);
+                                while($row = $db->table_select->fetch_assoc())
+                                {
+                                    $result_body .= '<option value="'.$row['id_contractor_tmc'].'">'.$row['title_contractor_tmc'].'</option>';
+                                }
+                                $result_body .= '</select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="checkbox checkbox-switchery">
+                            <label>
+                              <input type="checkbox" class="switchery"  name="longpay_contractor" > <span style="margin-left:10px;">
+                              Работа по договору в отсрочку </span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <hr>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label><span style="color:red;">*</span>  ФИО представителя</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control"  placeholder="Укажите название" name="contractor_representative_fio">
+                                    <span class="input-group-addon bg-primary"><i class="icon-envelop"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label><span style="color:red;">*</span>  Номер телефона представителя</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control mask-phone"  placeholder="Укажите название" name="contractor_representative_phone">
+                                    <span class="input-group-addon bg-primary"><i class="icon-envelop"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label><span style="color:red;">*</span>  Адрес электронной почты</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control"  placeholder="Укажите название" name="contractor_representative_mail">
+                                    <span class="input-group-addon bg-primary"><i class="icon-envelop"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ';
+$result_footer = '
+              <button class="btn btn-primary" form="add_contractor">Добавить поставщика</button>
+              <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
+             </form>';
+}
+
 elseif($_POST['arr_post'][0]['value'] == '#modal_add_work_technic_deliver')
 {
 	$result_body .= '<script type="text/javascript">
 			      	    $(".select-search").select2();
+                  $(".select-size-sm").select2();
+                  var elements = document.getElementsByClassName("mask-phone");
+                  for (var i = 0; i < elements.length; i++) {
+                    new IMask(elements[i], {
+                      mask:"+{7}(000)000-00-00",
+                    });
+                  }
+                  var elements = document.getElementsByClassName("mask-timer");
+                  for (var i = 0; i < elements.length; i++) {
+                    new IMask(elements[i], {
+                      mask:"00:00",
+                    });
+                  }
+                  var elements = document.getElementsByClassName("mask-gov-number");
+                  for (var i = 0; i < elements.length; i++) {
+                    new IMask(elements[i], {
+                      mask:"a000aa00",
+                    });
+                  }
+                  var elements = document.getElementsByClassName("no-letter");
+                  for (var i = 0; i < elements.length; i++) {
+                    new IMask(elements[i], {
+                      mask:"000000000000000",
+                    });
+                  }
+
+  	      	    	if (Array.prototype.forEach) {
+				        var elems = Array.prototype.slice.call(document.querySelectorAll(".switchery"));
+				        elems.forEach(function(html) {
+				            var switchery = new Switchery(html);
+				        });
+				    }
+				    else {
+				        var elems = document.querySelectorAll(".switchery");
+				        for (var i = 0; i < elems.length; i++) {
+				            var switchery = new Switchery(elems[i]);
+				        }
+				    }
+            $(".pickadate-accessibility").pickadate({
+                labelMonthNext: "Go to the next month",
+                labelMonthPrev: "Go to the previous month",
+                labelMonthSelect: "Pick a month from the dropdown",
+                labelYearSelect: "Pick a year from the dropdown",
+                selectMonths: true,
+                selectYears: true,
+                 format: "dd.mm.yyyy",
+            });
 		      	    </script>
-                    <form class="follow-form" enctype="multipart/form-data" method="POST" id="add_object">
+                <form class="follow-form" enctype="multipart/form-data" method="POST" id="add_work_technic_deliver">
+              	<input type="hidden"  value ="add_work_technic_deliver" name="specification">
 		            <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label><span style="color:red;">*</span> Выбрать тип техники</label>
-                            <select class="select select-search"  name="technic_name">';
-                            $db->select_table(NULL, 'technics_class', NULL);
-                                  while($row = $db->table_select->fetch_assoc())
+                            <select class="select select-search"  name="deliver_technic_name">';
+                            $db->query_free("SELECT * FROM `technics_class`  WHERE  `technics_class_id` = '3'");
+                                  while($row = $db->table_query->fetch_assoc())
                                   {
                                   $result_body .= '<optgroup label="'.$row['technics_class_name'].'">';
                                       $db_2->query_free("SELECT * FROM `technics`  WHERE `id_technic_class` = '".$row['technics_class_id']."'");
@@ -614,10 +794,31 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_work_technic_deliver')
 
                       </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                          <label><span style="color:red;">*</span> Дата выполнения заявки</label>
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                              <input type="text" name="deliver_date" class="form-control pickadate-accessibility" placeholder="">
+                          </div>
+                      </div>
+                    </div>
+                      <div class="col-md-4">
+                          <div class="form-group">
+                              <label><span style="color:red;">*</span>  Укажите время отправки заявки</label>
+                              <div class="input-group">
+                                  <input type="text" class="form-control mask-timer"  placeholder="Укажите время" name="deliver_time">
+                                  <span class="input-group-addon bg-primary"><i class="icon-alarm"></i></span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label><span style="color:red;">*</span> Выбрать объект доставки</label>
-                            <select class="select select-search"  name="object_user">';
+                            <label><span style="color:red;">*</span> Выбрать объект(-ы) доставки</label>
+                            <select multiple="multiple" class="select-size-sm" name="deliver_objects[]" >';
                             $db->select_table(NULL, 'objects', NULL);
                                   while($row = $db->table_select->fetch_assoc())
                                   {
@@ -627,21 +828,72 @@ elseif($_POST['arr_post'][0]['value'] == '#modal_add_work_technic_deliver')
                           </select>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span> Укажите пункт(-ы) заезда(-ов) по порядку</label>
+                            <select multiple="multiple" class="select-size-sm" name="deliver_contractors[]">';
+                                $db->select_table(NULL, 'contractors', NULL);
+                                  while($row = $db->table_select->fetch_assoc())
+                                {
+                                    $result_body .= '<option value="'.$row['id_contractor'].'">'.$row['title_contractor'].' ('.$row['inn_contractor'].')</option>';
+                                }
+              $result_body .='</select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label><span style="color:red;">*</span>  Полный адрес объекта</label>
+                            <label><span style="color:red;">*</span>  Оговоренная стоимость</label>
                             <div class="input-group">
-                                <input type="text" class="form-control"  placeholder="Укажите адрес" name="object_address">
-                                <span class="input-group-addon bg-primary"><i class="icon-map4"></i></span>
+                                <input type="text" class="form-control no-letter"  placeholder="Укажите стоимость" name="deliver_price">
+                                <span class="input-group-addon bg-primary"><i class="icon-cash"></i></span>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span>  Гос. номер</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control mask-gov-number"  placeholder="Укажите гос. номер" name="deliver_gov_number">
+                                <span class="input-group-addon bg-primary"><i class="icon-car"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span>  Телефон для связи</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control mask-phone"  placeholder="Укажите телефон" name="deliver_phone">
+                                <span class="input-group-addon bg-primary"><i class="icon-phone"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span>  Имя водителя</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control"  placeholder="Укажите имя" name="deliver_user_name">
+                                <span class="input-group-addon bg-primary"><i class="icon-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="checkbox checkbox-switchery">
+                        <label>
+                          <input type="checkbox" class="switchery"  name="deliver_attorney"> <span style="margin-left:10px;">
+                          На водителя данной машины будет выдаваться доверенность </span>
+                      </label>
+                      </div>
+                    </div>
 		            </div>
+              </div>
 				';
-$result_footer = '<button class="btn btn-primary" form="add_sector">Добавить объект</button>
-			 </form>
-             <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
-            ';
+
+$result_footer = '
+      <button class="btn btn-primary" form="add_work_technic_deliver" id="fullcalendar_button">Внести доставку</button>
+      <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
+     </form>';
 }
 
 $list = array("error_code" => $error_code, "error_message" => $error_str, "result_body" => $result_body, "result_footer" => $result_footer);

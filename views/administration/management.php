@@ -71,5 +71,23 @@
                 </div>
             </div>
         </div>
+        <div id="modal_add_contractor" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title">Добавить роль</h5>
+                    </div>
+
+                    <div class="modal-body">
+                       
+                    </div>
+
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

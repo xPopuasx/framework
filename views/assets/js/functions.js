@@ -197,6 +197,14 @@ $(function () {
         });
     });
 
+    $(document).on("click", ".prev-modal-li", function (e) {
+      $('.close').click();
+      var element = $(this);
+       setTimeout(function(){
+         element.next('li').click();
+       }, 550);
+    })
+
     function getViewContentPagination(id_block, page, interval)
     {
         var arr_post = [];
@@ -283,7 +291,21 @@ $(function () {
         }, 'json');
     }
 
+    function getDataFullCalendar(path)
+    {
+      var arr_post = [];
+      arr_post.push({"id" : 1, "value":path});
+      $.post('../../views/includes/fullcalendar/fullcalendar.php', {arr_post}, function(data){
+
+      }, 'json');
+    }
+
+
     //Вывод информации при загрузке страницы
+    if(window.location.pathname === '/technics/management')
+    {
+        getDataFullCalendar('/technics/management');
+    }
     if(window.location.pathname === '/technics/counterparty')
     {
         getViewContent('table_counterpartys');

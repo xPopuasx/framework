@@ -14,9 +14,9 @@
         </ul>
     </div>
 	<div class="content">
-        <div class="row">
-
-        </div>
+    <?php
+        include __DIR__.'/content/'.$action.'.php';
+    ?>
 
         <div id="modal_add_work_technic" class="modal fade">
             <div class="modal-dialog modal-lg">

@@ -39,6 +39,8 @@
 
     <script src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switchery.min.js"></script>
 	  <script src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switch.min.js"></script>
+    <script src="<?= $vars[0];?>/views/assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="<?= $vars[0];?>/views/assets/js/plugins/ui/fullcalendar/fullcalendar.min.js"></script>
   	<script src="<?= $vars[0];?>/views/assets/js/functions.js"></script>
 
 
