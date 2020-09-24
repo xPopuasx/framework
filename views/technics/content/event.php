@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li class="text-left">
-                <h5 class="panel-title">Стаутс</h5>
+                <h5 class="panel-title">Стаутс</h5></br>
                 <span class="text-muted">Статус исполнения</span>
             </li>
         </ul>
