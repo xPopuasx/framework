@@ -69,10 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         eventClick: function(event)
         {
+            var id = event.id;
           swal({
               title: "Работа с событием",
               type: "info",
-              text: "<a href = 'event/123' class='btn btn-primary'><i class='icon-eye2'></i> Прейти к событию</a><br> <hr>так же вы можете удалить данное событие",
+              text: "<a href = 'event/"+id+"' class='btn btn-primary'><i class='icon-eye2'></i> Прейти к событию</a><br> <hr>так же вы можете удалить данное событие",
               html: true,
               showCancelButton: true,
               confirmButtonColor: "#EF5350",
@@ -82,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           function(isConfirm){
               if (isConfirm) {
-                  var id = event.id;
                   var action = 'Deleted';
                 $.ajax({
                   url:'../../views/includes/fullcalendar/fullcalendar.php',

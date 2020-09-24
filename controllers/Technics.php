@@ -18,5 +18,10 @@ class technics extends \app\Controller{
 	{
 		$this->View->render('technics','Counterparty',['title'=> 'Контрагенты', 'has_sidebar' => true,]);
 	}
-	
+
+	public function Event()
+	{
+		$this->View->render('technics','Event',['title'=> 'Собыите', 'has_sidebar' => false,]);
+	}
+
 }

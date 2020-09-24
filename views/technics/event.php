@@ -1,12 +1,21 @@
 <?
     $Api = new models\Api;
+    $db = new app\db;
+    $db_2 = clone($db);
+    $db_3 = clone($db);
+    $url = mb_strtolower($_GET['url']);
+    $url = explode('/', rtrim($url, '/'));
+
+   $db->query_free("SELECT * FROM `application_deliver` INNER JOIN `technics` ON `application_deliver`.`deliver_technic_name` = `technics`.`id_technic` WHERE `application_deliver`.`id_deliver` = '".$url[2]."' ");
+   $row = $db->table_query->fetch_assoc();
+
 ?>
 
 <div class="content-wrapper">
 	<div class="page-header navbar-default page-header-default">
         <div class="page-header-content">
             <div class="page-title">
-                <h4><span class="text-semibold"><?=$vars['title']?></span></h4>
+                <h4><span class="text-semibold">Доставка от <?=date("d.m.Y", strtotime($row['deliver_date']))?> в <?=date("H:s", strtotime($row['deliver_time']))?><br> Техника - <?=$row['technic_name']?></span></h4>
             </div>
         </div>
         <ul class="nav navbar-nav no-border visible-xs-block">
