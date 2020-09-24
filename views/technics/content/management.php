@@ -17,23 +17,10 @@
 </div>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
-
-    var event = [
-      {
-        'title' : 'событие',
-        'start' : '2020-09-23'
-      }
-    ]
-
-    // Initialization
-    // ------------------------------
-
-    // Basic view
-    var now = new Date();
     var calendar = $('.fullcalendar-basic').fullCalendar({
         editable: true,
         header: {
-            left: 'prev,next today',
+            left: 'prev, next today',
             center: 'title',
             right: 'month,basicWeek,basicDay'
         },
@@ -48,25 +35,78 @@ document.addEventListener('DOMContentLoaded', function() {
           $('.prev-modal-li').click(function(){
             setTimeout(function(){
               $('input[name="deliver_date"]').val(start)
-            }, 600);
-            $('#fullcalendar_button').click(function(){
-              alert();
+            }, 800);
+            $(document).on("click", "#fullcalendar_button", function (e) {
+              setTimeout(function(){
+                calendar.fullCalendar('refetchEvents');
+              }, 400);
             })
           })
+        },
+        eventLimit: true,
+        eventDrop: function(event)
+        {
+          var start = $.fullCalendar.formatDate(event.start, 'DD.MM.Y');
+          var id = event.id;
+          var action = 'Drop';
 
+          $.ajax({
+            url:'../../views/includes/fullcalendar/fullcalendar.php',
+            type: 'POST',
+            data: {action:action, id:id, start:start},
+            success: function()
+            {
+              calendar.fullCalendar('refetchEvents');
+              swal({
+                  title: "Выполнено",
+                  text: "Событие успешно перенесено",
+                  confirmButtonColor: "#66BB6A",
+                  type: "success"
+              });
+            }
+          })
 
-
-
-
-        }
-
+        },
+        eventClick: function(event)
+        {
+          swal({
+              title: "Работа с событием",
+              type: "info",
+              text: "<a href = 'event/123' class='btn btn-primary'><i class='icon-eye2'></i> Прейти к событию</a><br> <hr>так же вы можете удалить данное событие",
+              html: true,
+              showCancelButton: true,
+              confirmButtonColor: "#EF5350",
+              confirmButtonText: `Удалить событие`,
+              cancelButtonText: "Отмена",
+              closeOnConfirm: false
+          },
+          function(isConfirm){
+              if (isConfirm) {
+                  var id = event.id;
+                  var action = 'Deleted';
+                $.ajax({
+                  url:'../../views/includes/fullcalendar/fullcalendar.php',
+                  type: 'POST',
+                  data: {action:action, id:id},
+                  success: function()
+                  {
+                    calendar.fullCalendar('refetchEvents');
+                    swal({
+                        title: "Выполнено",
+                        text: "Событие успешно удалено",
+                        confirmButtonColor: "#66BB6A",
+                        type: "success"
+                    });
+                  }
+                })
+              }
+          });
+        },
+        isRTL: $('html').attr('dir') == 'rtl' ? true : false
     });
-
-
-
 });
 </script>
-<span  id="hidden_modal" data-toggle="modal" data-target="#modal_add_work_technic_wariation" ></span>
+<span id="hidden_modal" data-toggle="modal" data-target="#modal_add_work_technic_wariation" ></span>
 <div id="modal_add_work_technic_wariation" class="modal fade">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">

@@ -274,7 +274,7 @@
                                 </tr>
                             </thead>
                             <tbody id="'.$specification.'_append">';
-                            $db->query_free("SELECT `roles`.*, COUNT(`users`.`user_id`) AS `count_users` FROM `roles` INNER JOIN `users` ON `users`.`user_access` = `roles`.`role_id` GROUP BY `roles`.`role_id` ORDER BY `role_id` DESC ");
+                            $db->query_free("SELECT `roles`.*, COUNT(`users`.`user_id`) AS `count_users` FROM `roles` LEFT JOIN `users` ON `users`.`user_access` = `roles`.`role_id` GROUP BY `roles`.`role_id` ORDER BY `role_id` DESC ");
                             while($row = $db->table_query->fetch_assoc())
                             {
                               if($row['role_status'] == 0)

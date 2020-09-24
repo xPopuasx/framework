@@ -36,6 +36,9 @@
 	  <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/pickers/pickadate/picker.date.js"></script>
   	<script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/inputs/passy.js"></script>
     <script type="text/javascript" src="<?= $vars[0];?>/views/assets/js/plugins/forms/inputs/maxlength.min.js"></script>
+		<script src="<?= $vars[0];?>/views/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+
+		<script src="<?= $vars[0];?>/views/assets/js/pages/components_modals.js"></script>
 
     <script src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switchery.min.js"></script>
 	  <script src="<?= $vars[0];?>/views/assets/js/plugins/forms/styling/switch.min.js"></script>

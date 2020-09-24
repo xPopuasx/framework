@@ -45,10 +45,10 @@ $(function() {
     // Prompt dialog
     $('#prompt').on('click', function() {
         bootbox.prompt("Please enter your name", function(result) {
-            if (result === null) {                                             
-                bootbox.alert("Prompt dismissed");                              
+            if (result === null) {
+                bootbox.alert("Prompt dismissed");
             } else {
-                bootbox.alert("Hi <b>"+result+"</b>");                          
+                bootbox.alert("Hi <b>"+result+"</b>");
             }
         });
     });
@@ -180,7 +180,7 @@ $(function() {
             alert('onHidden callback fired.')
         });
     });
-    
+
 
     // Sweet Alert extension
     // ------------------------------
@@ -274,7 +274,7 @@ $(function() {
     //
     // Contextual alerts
     //
-    
+
     // Success alert
     $('#sweet_success').on('click', function() {
         swal({
@@ -294,6 +294,7 @@ $(function() {
             type: "error"
         });
     });
+
 
     // Warning alert
     $('#sweet_warning').on('click', function() {

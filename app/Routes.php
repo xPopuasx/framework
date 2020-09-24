@@ -1,6 +1,6 @@
 <?php
 
-return 
+return
 [
    // авторизация
   'login' =>
@@ -79,7 +79,7 @@ return
               'priority_action' => false,
             ],
           ],
-        ], 
+        ],
         'technics/counterparty' =>[
           'controller'      => 'technics',
           'action'          => 'counterparty',
@@ -87,6 +87,15 @@ return
           'icon'            => 'icon-briefcase3',
           'priority_action' => false,
           'parent'          => false,
+        ],
+        'technics/event' =>[
+          'controller'      => 'technics',
+          'action'          => 'event',
+          'title'           => 'Событие',
+          'icon'            => 'icon-download4',
+          'priority_action' => false,
+          'parent'          => false,
+          'in_menu'         => false,
         ],
       ],
       'category' =>
