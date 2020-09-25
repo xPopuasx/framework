@@ -181,7 +181,10 @@ $(function () {
                         type: 'error'
                     });
                     var split = id.split('_');
-                    appendContent('table_'+split[1]+'s');
+                    if($('#table_'+split[1]+'s'))
+                    {
+                      appendContent('table_'+split[1]+'s')
+                    }
                     $('.close').click();
                 }
                 else
@@ -252,7 +255,7 @@ $(function () {
 
             setTimeout(function()
             {
-              $('#'+id_blokc + '_append tr:first').removeClass('active');
+              $('#'+id_block + '_append tr:first').removeClass('active');
             }, 3000);
 
         }, 'json');
@@ -301,28 +304,60 @@ $(function () {
     }
 
 
+        function longpoll(timestamp)
+        {
+          var time_long = timestamp;
+          var arr_post = [];
+          arr_post.push({"id" : 1, "value":time_long});
+          $.post('../../models/longpoll.php', {arr_post}, function(data){
+              if(data.result_query === 'true')
+              {
+                var stack_bottom_left = {"dir1": "right", "dir2": "up", "push": "top"};
+        				var stack_bottom_left_rtl = {"dir1": "left", "dir2": "up", "push": "top"};
+        				new PNotify({
+                    title: 'Уведомление',
+                    text: data.alert_msg,
+                    addclass: "stack-bottom-left bg-primary border-primary",
+            				stack: $('html').attr('dir') == 'rtl' ? stack_bottom_left_rtl : stack_bottom_left,
+                    hide: false
+              	});
+                longpoll(data.timestamp);
+              }
+              else
+              {
+                longpoll(data.timestamp);
+              }
+          }, 'json');
+        }
+
+
     //Вывод информации при загрузке страницы
     if(window.location.pathname === '/technics/management')
     {
         getDataFullCalendar('/technics/management');
+        longpoll();
     }
     if(window.location.pathname === '/technics/counterparty')
     {
         getViewContent('table_counterpartys');
         getViewContent('table_counterpartyDocs');
+        longpoll();
     }
     else if(window.location.pathname === '/administration/management')
     {
         getViewContent('table_organizations');
         getViewContent('table_sectors');
+        longpoll();
     }
     else if(window.location.pathname === '/administration/access')
     {
         getViewContent('table_roles');
+        longpoll();
     }
     else if(window.location.pathname === '/administration/users')
     {
         getViewContent('table_users');
+        longpoll();
     }
 
-})
+});

@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li class="text-left">
-                <h5 class="panel-title">Стаутс</h5></br>
+                <h5 class="panel-title">Стаутс</h5>
                 <span class="text-muted">Статус исполнения</span>
             </li>
         </ul>
@@ -21,7 +21,7 @@
           </div>
       </div>
       <div class="panel-body">
-        Номер машины : <?=$row['deliver_gov_number']?>
+        Номер машины : <?=$row['deliver_gov_number']?></br>
         Статус : Исполненно
       </div>
     </div>

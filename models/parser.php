@@ -319,7 +319,9 @@
                 $db->insert_into_table('roles', $array_role);
               if($db->error_code == 0)
               {
-
+                $db_2->query_free("SELECT * FROM `roles`  ORDER BY `role_id` DESC LIMIT 1 ");
+                $row_2 = $db_2->table_query->fetch_assoc();
+                $db ->insert_log('Управление доступами <hr> Добавлена новая роль', date('Y-m-d'), '1', 'roles', $row_2['role_id'], date('Y-m-d H:i:s'));
                 $error_code = $db->error_status;
                 $error_msg = 'Роль успешно добавлена';
               }
@@ -389,6 +391,9 @@
                     $db->insert_into_table('managers', $array_manager);
                     if($db->error_code == 0)
                     {
+                      $db_2->query_free("SELECT * FROM `contractors`  ORDER BY `id_contractor` DESC LIMIT 1 ");
+                      $row_2 = $db_2->table_query->fetch_assoc();
+                      $db ->insert_log('Управление структурой <hr> Добавлен новый поставщик', date('Y-m-d'), '1', 'contractors', $row_2['id_contractor'], date('Y-m-d H:i:s'));
                       $error_code = $db->error_code;
                       $error_msg = 'Поставщик успешно добавлен';
                     }
@@ -455,6 +460,9 @@
                     $db->insert_into_table('users', $array_user);
                     if($db->error_code == 0)
                     {
+                      $db_2->query_free("SELECT * FROM `users`  ORDER BY `user_id` DESC LIMIT 1 ");
+                      $row_2 = $db_2->table_query->fetch_assoc();
+                      $db ->insert_log('Управление пользователями <hr> Добавлен новый пользователь', date('Y-m-d'), '1', 'users', $row_2['user_id'], date('Y-m-d H:i:s'));
                       $error_code = $db->error_code;
                       $error_msg = 'Пользователь успешно добавлен';
                     }
@@ -518,9 +526,14 @@
               $array_deliver['deliver_time']         = $_POST['deliver_time'];
               $array_deliver['deliver_date']         = date("Y-m-d", strtotime($_POST['deliver_date']));
               $array_deliver['deliver_attorney']     = $_POST['deliver_attorney'];
+
               $db->insert_into_table('application_deliver', $array_deliver);
               if($db->error_code == 0)
               {
+
+                $db_2->query_free("SELECT * FROM `application_deliver`  ORDER BY `id_deliver` DESC LIMIT 1 ");
+                $row_2 = $db_2->table_query->fetch_assoc();
+                $db ->insert_log('Изменения в таблице работы с техникой <hr> Событие добавлено', date('Y-m-d'), '1', 'application_deliver', $row_2['id_deliver'], date('Y-m-d H:i:s'));
                 $error_code = $db->error_code;
                 $error_msg = 'Доставка успешно добавлена';
               }

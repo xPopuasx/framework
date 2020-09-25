@@ -137,6 +137,7 @@ class db
 
                 unset($this->query_insert_column);
                 unset($this->query_insert_value);
+                unset($this->query);
     }
 
     public function select_table($params=[], $table, $vars=[])
@@ -220,6 +221,18 @@ class db
     public function delet_from_table()
     {
 
+    }
+
+    public function insert_log($log_do, $log_date, $log_user, $log_table, $log_id_in_table, $logs_timestamp)
+    {
+      $logs = array();
+      $logs['log_do'] = $log_do;
+      $logs['log_date'] = $log_date;
+      $logs['log_user'] = $log_user;
+      $logs['log_table'] = $log_table;
+      $logs['log_id_in_table'] = $log_id_in_table;
+      $logs['logs_timestamp'] = $logs_timestamp;
+      $this->insert_into_table('logs', $logs);
     }
 }
 

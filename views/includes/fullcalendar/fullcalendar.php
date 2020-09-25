@@ -4,12 +4,18 @@
   $db_2 = clone($db);
   if($_POST['action'] == 'Drop')
   {
+    $db_2->query_free("SELECT * FROM `application_deliver` WHERE `id_deliver` = '".$_POST['id']."'");
+    $row_2 = $db_2->table_query->fetch_assoc();
+    $db ->insert_log('Изменения в таблице работы с техникой <hr> Перенос события на другю дату', date('Y-m-d'), '1', 'application_deliver', $row_2['id_deliver'], date('Y-m-d H:i:s'));
     $new_date = date("Y-m-d", strtotime($_POST['start']));
     $db->query_free("UPDATE `application_deliver`  SET `deliver_date` = '".$new_date."' WHERE `id_deliver` = '".$_POST['id']."'");
   }
   elseif($_POST['action'] == 'Deleted')
   {
-    $db->query_free("DELETE FROM `application_deliver` WHERE `id_deliver` = '".$_POST['id']."'");
+  $db_2->query_free("SELECT * FROM `application_deliver` WHERE `id_deliver` = '".$_POST['id']."'");
+  $row_2 = $db_2->table_query->fetch_assoc();
+  $db ->insert_log('Изменения в таблице работы с техникой <hr> Событие удалено', date('Y-m-d'), '1', 'application_deliver', $row_2['id_deliver'], date('Y-m-d H:i:s'));
+  $db->query_free("DELETE FROM `application_deliver` WHERE `id_deliver` = '".$_POST['id']."'");
   }
   else
   {
