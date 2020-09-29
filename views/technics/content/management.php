@@ -24,17 +24,24 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'month,basicWeek,basicDay'
         },
+        nextDayThreshold: '09:00:00',
         events: '../../views/includes/fullcalendar/fullcalendar.php',
+        nowIndicator: true,
         selectable: true,
         selectHelper: true,
+        eventLimit: true,
         select: function(start, end, allDay)
         {
           $('#hidden_modal').click();
 
           var start = $.fullCalendar.formatDate(start, 'DD.MM.Y');
+          var endDate = new Date(end);
+          beforeDay = new Date(endDate.getFullYear(),endDate.getMonth(),endDate.getDate() - 1).toLocaleString().split(',');
+          var end = beforeDay[0];
           $('.prev-modal-li').click(function(){
             setTimeout(function(){
               $('input[name="deliver_date"]').val(start)
+              $('input[name="deliver_date_end"]').val(end)
             }, 800);
             $(document).on("click", "#fullcalendar_button", function (e) {
               setTimeout(function(){
@@ -43,17 +50,43 @@ document.addEventListener('DOMContentLoaded', function() {
             })
           })
         },
-        eventLimit: true,
+        eventResize: function(event)
+        {
+          var start = $.fullCalendar.formatDate(event.start, 'DD.MM.Y');
+          var endDate = new Date(event.end);
+          beforeDay = new Date(endDate.getFullYear(),endDate.getMonth(),endDate.getDate() - 1).toLocaleString().split(',');
+          var end = beforeDay[0];
+          var id    = event.id;
+          var action = 'Resize';
+          $.ajax({
+            url:'../../views/includes/fullcalendar/fullcalendar.php',
+            type: 'POST',
+            data: {action:action, id:id, start:start, end:end},
+            success: function()
+            {
+              calendar.fullCalendar('refetchEvents');
+              swal({
+                  title: "Выполнено",
+                  text: "Период события успешно изменён",
+                  confirmButtonColor: "#66BB6A",
+                  type: "success"
+              });
+            }
+          })
+        },
         eventDrop: function(event)
         {
           var start = $.fullCalendar.formatDate(event.start, 'DD.MM.Y');
+          var endDate = new Date(event.end);
+          beforeDay = new Date(endDate.getFullYear(),endDate.getMonth(),endDate.getDate() - 1).toLocaleString().split(',');
+          var end = beforeDay[0];
           var id = event.id;
           var action = 'Drop';
 
           $.ajax({
             url:'../../views/includes/fullcalendar/fullcalendar.php',
             type: 'POST',
-            data: {action:action, id:id, start:start},
+            data: {action:action, id:id, start:start, end:end},
             success: function()
             {
               calendar.fullCalendar('refetchEvents');
@@ -95,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: "Выполнено",
                         text: "Событие успешно удалено",
                         confirmButtonColor: "#66BB6A",
-                        type: "success"
+                        type: "success",
+                        timer:1500
                     });
                   }
                 })
@@ -120,10 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
                   <div class="sidebar-category">
                       <div class="category-content no-padding">
                           <ul class="navigation navigation-alt navigation-accordion" >
-                              <li  class="prev-modal-li"  ><a style="color:#000000;"><i class="icon-add"></i> Добавить технику</a></li>
-                              <li style="display:none" class = "modal-li" data-toggle="modal" data-target="#modal_add_work_technic" ><i class="icon-add"></i> Добавить технику</a></li>
                               <li  class="prev-modal-li"  ><a style="color:#000000;"><i class="icon-alignment-align"></i> Добавить доставку</a></li>
                               <li style="display:none" class = "modal-li" data-toggle="modal" data-target="#modal_add_work_technic_deliver"><i class="icon-alignment-align"></i> Добавить доставку</a></li>
+                                  <li  class="prev-modal-li"  ><a style="color:#000000;"><i class="icon-clipboard6"></i> Добавить работу техники</a></li>
+                                  <li style="display:none" class = "modal-li" data-toggle="modal" data-target="#modal_add_work_technic"><i class="icon-clipboard6"></i> Добавить работу техники</a></li>
                           </ul>
                       </div>
                   </div>

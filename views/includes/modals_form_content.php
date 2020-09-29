@@ -896,6 +896,159 @@ $result_footer = '
      </form>';
 }
 
+elseif($_POST['arr_post'][0]['value'] == '#modal_add_work_technic')
+{
+	$result_body .= '<script type="text/javascript">
+			      	    $(".select-search").select2();
+                  $(".select-size-sm").select2();
+                  var elements = document.getElementsByClassName("mask-phone");
+                  for (var i = 0; i < elements.length; i++) {
+                    new IMask(elements[i], {
+                      mask:"+{7}(000)000-00-00",
+                    });
+                  }
+                  var elements = document.getElementsByClassName("mask-hours");
+                  for (var i = 0; i < elements.length; i++) {
+                    new IMask(elements[i], {
+                      mask:"00",
+                    });
+                  }
+                  var elements = document.getElementsByClassName("no-letter");
+                  for (var i = 0; i < elements.length; i++) {
+                    new IMask(elements[i], {
+                      mask:"000000000000000",
+                    });
+                  }
+            $(".pickadate-accessibility").pickadate({
+                labelMonthNext: "Go to the next month",
+                labelMonthPrev: "Go to the previous month",
+                labelMonthSelect: "Pick a month from the dropdown",
+                labelYearSelect: "Pick a year from the dropdown",
+                selectMonths: true,
+                selectYears: true,
+                 format: "dd.mm.yyyy",
+            });
+		      	    </script>
+                <form class="follow-form" enctype="multipart/form-data" method="POST" id="add_work_technic">
+              	<input type="hidden"  value ="add_work_technic" name="specification">
+		            <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span> Выбрать тип техники</label>
+                            <select class="select select-search"  name="deliver_technic_name">';
+                            $db->query_free("SELECT * FROM `technics_class`");
+                                  while($row = $db->table_query->fetch_assoc())
+                                  {
+                                  $result_body .= '<optgroup label="'.$row['technics_class_name'].'">';
+                                      $db_2->query_free("SELECT * FROM `technics`  WHERE `id_technic_class` = '".$row['technics_class_id']."'");
+                                      while($row_2 = $db_2->table_query->fetch_assoc())
+                                      {
+                                          $result_body .= '<option value="'.$row_2['id_technic'].'">'.$row_2['technic_name'].'</option>';
+                                      }
+
+                                  $result_body .= '</optgroup>';
+                                  }
+                          $result_body .= '
+                          </select>
+
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                          <label><span style="color:red;">*</span> Дата начала выполнения</label>
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                              <input type="text" name="deliver_date" class="form-control pickadate-accessibility" placeholder="">
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                          <label><span style="color:red;">*</span> Дата окончания выполнения</label>
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                              <input type="text" name="deliver_date_end" class="form-control pickadate-accessibility" placeholder="">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span> Выбрать поставщика техники</label>
+                            <select class="select-size-sm" name="deliver_contractors">';
+                  $result_body .= '<option  value="0">Выбрать поставщика</option>';
+                            $db->select_table(NULL, 'technics_counterparty', NULL);
+                                  while($row = $db->table_select->fetch_assoc())
+                                  {
+                                      $result_body .= '<option value="'.$row['counterparty_id'].'">'.$row['counterparty_name'].' ('.$row['counterparty_INN'].')</option>';
+                                  }
+                          $result_body .= '
+                          </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span> Выбрать объект выполнения</label>
+                            <select class="select-size-sm" name="deliver_objects">';
+                  $result_body .= '<option  value="0">Выбрать объект</option>';
+                            $db->select_table(NULL, 'objects', NULL);
+                                  while($row = $db->table_select->fetch_assoc())
+                                  {
+                                      $result_body .= '<option value="'.$row['object_id'].'">'.$row['object_title'].'</option>';
+                                  }
+                          $result_body .= '
+                          </select>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span>  Оговоренная стоимость за час</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control no-letter"  placeholder="Укажите стоимость" name="deliver_price">
+                                <span class="input-group-addon bg-primary"><i class="icon-cash"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span>  Продолжительность смены</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control mask-hours"   placeholder="Укажите в часах" name="deliver_hours">
+                                <span class="input-group-addon bg-primary"><i class="icon-cash"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span>  Телефон для связи</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control mask-phone"  placeholder="Укажите телефон" name="deliver_phone">
+                                <span class="input-group-addon bg-primary"><i class="icon-phone"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><span style="color:red;">*</span>  Имя водителя</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control"  placeholder="Укажите имя" name="deliver_user_name">
+                                <span class="input-group-addon bg-primary"><i class="icon-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+		            </div>
+              </div>
+				';
+
+$result_footer = '
+      <button class="btn btn-primary" form="add_work_technic" id="fullcalendar_button">Внести работу техники</button>
+      <button type="button" class="btn btn-grey-400" data-dismiss="modal">Отмена</button>
+     </form>';
+}
+
 $list = array("error_code" => $error_code, "error_message" => $error_str, "result_body" => $result_body, "result_footer" => $result_footer);
 $c = json_encode($list);
 echo $c;

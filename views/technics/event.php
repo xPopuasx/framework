@@ -2,7 +2,6 @@
     $Api = new models\Api;
     $db = new app\db;
     $db_2 = clone($db);
-    $db_3 = clone($db);
     $url = mb_strtolower($_GET['url']);
     $url = explode('/', rtrim($url, '/'));
 
@@ -15,8 +14,14 @@
 	<div class="page-header navbar-default page-header-default">
         <div class="page-header-content">
             <div class="page-title">
-                <h4><span class="text-semibold">Доставка от <?=date("d.m.Y", strtotime($row['deliver_date']))?> в <?=date("H:s", strtotime($row['deliver_time']))?><br> Техника - <?=$row['technic_name']?></span></h4>
+                <h4><span class="text-semibold"><?=$row['deliver_specification']?> от <?=date("d.m.Y", strtotime($row['deliver_date']))?> в <?=date("H:s", strtotime($row['deliver_time']))?><br> Техника - <?=$row['technic_name']?></span></h4>
             </div>
+
+            <div class="heading-elements">
+							<div class="heading-btn-group">
+								<a href="#" class="btn btn-link btn-float has-text"><i class="icon-cash icon-2x text-primary"></i><span>Выписать деньги</span></a>
+							</div>
+						</div>
         </div>
         <ul class="nav navbar-nav no-border visible-xs-block">
             <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second"><i class="icon-circle-down2"></i></a></li>
@@ -24,7 +29,15 @@
     </div>
 	<div class="content">
     <?php
-        include __DIR__.'/content/'.$action.'.php';
+    if($row['deliver_specification'] == 'Доставка материалов')
+    {
+      include __DIR__.'/content/'.$action.'_deliver.php';
+    }
+    elseif($row['deliver_specification'] == 'Работа техники')
+    {
+      include __DIR__.'/content/'.$action.'_technic_work.php';
+    }
+
     ?>
 
         <div id="modal_add_work_technic" class="modal fade">

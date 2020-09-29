@@ -23,7 +23,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h5 class="modal-title">Добавить договор</h5>
+                        <h5 class="modal-title">Добавить работу техники</h5>
                     </div>
 
                     <div class="modal-body">
@@ -42,7 +42,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h5 class="modal-title">Добавить договор</h5>
+                        <h5 class="modal-title">Добавить доставку</h5>
                     </div>
 
                     <div class="modal-body">

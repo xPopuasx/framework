@@ -318,9 +318,9 @@ $(function () {
                     title: 'Уведомление',
                     text: data.alert_msg,
                     addclass: "stack-bottom-left bg-primary border-primary",
-            				stack: $('html').attr('dir') == 'rtl' ? stack_bottom_left_rtl : stack_bottom_left,
-                    hide: false
+            				stack: $('html').attr('dir') == 'rtl' ? stack_bottom_left_rtl : stack_bottom_left
               	});
+                calendar.fullCalendar('refetchEvents');
                 longpoll(data.timestamp);
               }
               else
@@ -337,7 +337,11 @@ $(function () {
         getDataFullCalendar('/technics/management');
         longpoll();
     }
-    if(window.location.pathname === '/technics/counterparty')
+    else if(window.location.pathname === '/home/index')
+    {
+        longpoll();
+    }
+    else if(window.location.pathname === '/technics/counterparty')
     {
         getViewContent('table_counterpartys');
         getViewContent('table_counterpartyDocs');

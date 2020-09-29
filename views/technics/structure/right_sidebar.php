@@ -20,9 +20,7 @@
             echo'
                 <div class="category-content no-padding">
                     <ul class="navigation navigation-alt navigation-accordion">
-                        <li  class="modal-li"  data-toggle="modal" data-target="#modal_add_work_technic" ><a><i class="icon-add"></i> Добавить технику</a></li>
-                        <li  class="modal-li"  data-toggle="modal" data-target="#modal_add_work_technic_deliver" ><a><i class="icon-alignment-align"></i> Добавить доставку</a></li>
-                        <li><a><i class="icon-file-plus2"></i> Добавить договор</a></li>
+                        <li  class="modal-li"  data-toggle="modal" data-target="#modal_add_work_technic_deliver" ><a><i class="icon-add"></i> Добавить действие техники</a></li>
                     </ul>
                 </div>';
             }
@@ -42,7 +40,7 @@
         </div>
         <div class="sidebar-category">
             <div class="category-title">
-                <span>Фильтр</span>
+                <span>Отчеты</span>
                 <ul class="icons-list">
                     <li><a href="#" data-action="collapse"></a></li>
                 </ul>
@@ -50,7 +48,11 @@
             <?php
                 if($_SERVER['REQUEST_URI'] == '/technics/management')
                 {
-                echo'
+                echo'<div class="category-content no-padding">
+                    <ul class="navigation navigation-alt navigation-accordion">
+                        <li  class="modal-li"  data-toggle="modal" data-target="#modal_add_work_technic" ><a><i class="icon-file-plus2"></i> Отчет о затратах</a></li>
+                    </ul>
+                </div>
                   ';
                 }
                 elseif($_SERVER['REQUEST_URI'] == '/technics/counterparty')

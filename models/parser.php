@@ -523,8 +523,9 @@
               $array_deliver['deliver_user_name']    = $_POST['deliver_user_name'];
               $array_deliver['deliver_objects']      = $_POST['deliver_objects'];
               $array_deliver['deliver_contractors']  = $_POST['deliver_contractors'];
-              $array_deliver['deliver_time']         = $_POST['deliver_time'];
-              $array_deliver['deliver_date']         = date("Y-m-d", strtotime($_POST['deliver_date']));
+              $array_deliver['deliver_specification']= "Доставка материалов";
+              $array_deliver['deliver_date']         = date("Y-m-d H:i:s", strtotime($_POST['deliver_date']));
+              $array_deliver['deliver_date_end']     = date("Y-m-d H:i:s", strtotime($_POST['deliver_date']));
               $array_deliver['deliver_attorney']     = $_POST['deliver_attorney'];
 
               $db->insert_into_table('application_deliver', $array_deliver);
@@ -533,9 +534,58 @@
 
                 $db_2->query_free("SELECT * FROM `application_deliver`  ORDER BY `id_deliver` DESC LIMIT 1 ");
                 $row_2 = $db_2->table_query->fetch_assoc();
-                $db ->insert_log('Изменения в таблице работы с техникой <hr> Событие добавлено', date('Y-m-d'), '1', 'application_deliver', $row_2['id_deliver'], date('Y-m-d H:i:s'));
+                $db ->insert_log('Изменения в таблице работы с техникой <hr> Событие добавлено: Доставка', date('Y-m-d'), '1', 'application_deliver', $row_2['id_deliver'], date('Y-m-d H:i:s'));
                 $error_code = $db->error_code;
                 $error_msg = 'Доставка успешно добавлена';
+              }
+              else
+              {
+                $error_code = $db->error_code;
+                $error_msg  = $db->error_message;
+              }
+          }
+          else
+          {
+            $error_code = 301;
+            $error_msg = 'Проверьте корректность заполненных полей';
+          }
+
+        }
+        else
+        {
+          $error_code = 300;
+          $error_msg = 'Заполните все обязательные поля';
+        }
+      }
+      elseif($specification == 'add_work_technic')
+      {
+        $count_array_post = count($_POST);
+        if(check_array($_POST, $count_array_post) == true)
+        {
+          if($_POST['deliver_objects'] != 0 && $_POST['deliver_contractors'] != 0 && phone_protect($_POST['deliver_phone']) == true)
+          {
+              $array_deliver = array();
+              $array_deliver['deliver_technic_name'] = $_POST['deliver_technic_name'];
+              $array_deliver['deliver_gov_number']   = $_POST['deliver_gov_number'];
+              $array_deliver['deliver_price']        = $_POST['deliver_price'];
+              $array_deliver['deliver_phone']        = $_POST['deliver_phone'];
+              $array_deliver['deliver_user_name']    = $_POST['deliver_user_name'];
+              $array_deliver['deliver_objects']      = $_POST['deliver_objects'];
+              $array_deliver['deliver_hours']        = $_POST['deliver_hours'];
+              $array_deliver['deliver_contractors']  = $_POST['deliver_contractors'];
+              $array_deliver['deliver_specification']= "Работа техники";
+              $array_deliver['deliver_date']         = date("Y-m-d H:i:s", strtotime($_POST['deliver_date']));
+              $array_deliver['deliver_date_end']     = date("Y-m-d H:i:s", strtotime($_POST['deliver_date_end']));
+
+              $db->insert_into_table('application_deliver', $array_deliver);
+              if($db->error_code == 0)
+              {
+
+                $db_2->query_free("SELECT * FROM `application_deliver`  ORDER BY `id_deliver` DESC LIMIT 1 ");
+                $row_2 = $db_2->table_query->fetch_assoc();
+                $db ->insert_log('Изменения в таблице работы с техникой <hr> Событие добавлено: Работа техники', date('Y-m-d'), '1', 'application_deliver', $row_2['id_deliver'], date('Y-m-d H:i:s'));
+                $error_code = $db->error_code;
+                $error_msg = 'Работа техники успешно добавлена';
               }
               else
               {
